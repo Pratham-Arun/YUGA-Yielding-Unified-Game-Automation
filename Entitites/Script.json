@@ -1,0 +1,42 @@
+{
+  "name": "Script",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Parent project ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Script name"
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "javascript",
+        "typescript",
+        "csharp",
+        "python"
+      ],
+      "default": "javascript"
+    },
+    "code": {
+      "type": "string",
+      "description": "Script code content"
+    },
+    "file_path": {
+      "type": "string",
+      "description": "Virtual file path in project"
+    },
+    "is_component": {
+      "type": "boolean",
+      "default": false,
+      "description": "Is this a game component script"
+    }
+  },
+  "required": [
+    "project_id",
+    "name",
+    "language"
+  ]
+}

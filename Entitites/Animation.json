@@ -1,0 +1,76 @@
+{
+  "name": "Animation",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Parent project ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Animation name"
+    },
+    "duration": {
+      "type": "number",
+      "description": "Duration in seconds",
+      "default": 5
+    },
+    "fps": {
+      "type": "number",
+      "description": "Frames per second",
+      "default": 60
+    },
+    "keyframes": {
+      "type": "array",
+      "description": "Animation keyframes",
+      "items": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "number"
+          },
+          "object_id": {
+            "type": "string"
+          },
+          "property": {
+            "type": "string"
+          },
+          "value": {},
+          "easing": {
+            "type": "string",
+            "default": "linear"
+          }
+        }
+      }
+    },
+    "tracks": {
+      "type": "array",
+      "description": "Animation tracks",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "object_id": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "visible": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "project_id",
+    "name"
+  ]
+}

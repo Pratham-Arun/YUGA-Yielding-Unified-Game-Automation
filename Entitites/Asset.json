@@ -1,0 +1,60 @@
+{
+  "name": "Asset",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Parent project ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Asset name"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "model",
+        "texture",
+        "material",
+        "audio",
+        "script",
+        "prefab",
+        "scene"
+      ],
+      "description": "Type of asset"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "URL to asset file"
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "description": "Asset thumbnail preview"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "file_size": {
+          "type": "number"
+        },
+        "dimensions": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "project_id",
+    "name",
+    "asset_type"
+  ]
+}

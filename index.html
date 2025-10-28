@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YUGA Engine</title>
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://unpkg.com; connect-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://i.ibb.co;">
+  <!-- Tailwind (CDN, core utilities) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {} }
+    }
+  </script>
+  <!-- Lucide Icons -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/esm/lucide.js"></script>
+  <!-- Three.js (global) -->
+  <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.158.0/examples/js/controls/OrbitControls.js"></script>
+  
+  <!-- Add local storage polyfill for persistence -->
+  <script>
+    if (!window.localStorage) {
+      window.localStorage = {
+        _data: {},
+        setItem: function(id, val) { return this._data[id] = String(val); },
+        getItem: function(id) { return this._data.hasOwnProperty(id) ? this._data[id] : undefined; },
+        removeItem: function(id) { return delete this._data[id]; },
+        clear: function() { return this._data = {}; }
+      };
+    }
+  </script>
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {} }
+    }
+  </script>
+  <!-- Core Styles -->
+  <style>
+    html, body, #app { height: 100%; margin: 0; padding: 0; }
+    
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      background-attachment: fixed;
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    
+    /* Scrollbar Styles */
+    .scrollbar-thin { scrollbar-width: thin; }
+    .scrollbar-thin::-webkit-scrollbar { height: 6px; width: 6px; }
+    .scrollbar-thin::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+    
+    /* Glass Effects */
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .glass-dark {
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    /* Gradient Effects */
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .gradient-btn {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      transition: all 0.3s ease;
+    }
+    
+    .gradient-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(99, 102, 241, 0.4);
+    }
+    
+    /* Card and Navigation Styles */
+    .card-gradient {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+    
+    .nav-item-active {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%);
+      border-left: 3px solid #6366f1;
+    }
+
+    /* Loading Screen */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid transparent;
+      border-top-color: #6366f1;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+    <div id="app" class="p-4">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+                YUGA Engine
+            </h1>
+            <div class="bg-white/5 backdrop-blur-lg rounded-lg p-6 shadow-xl">
+                <nav class="mb-6">
+                    <ul class="flex space-x-4">
+                        <li><a href="#" class="text-indigo-400 hover:text-indigo-300" data-view="dashboard">Dashboard</a></li>
+                        <li><a href="#" class="text-indigo-400 hover:text-indigo-300" data-view="engine">Engine</a></li>
+                        <li><a href="#" class="text-indigo-400 hover:text-indigo-300" data-view="script">Script Editor</a></li>
+                        <li><a href="#" class="text-indigo-400 hover:text-indigo-300" data-view="animation">Animation</a></li>
+                    </ul>
+                </nav>
+                <div id="main-content" class="min-h-[400px]">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- App initialization -->
+    <script type="module">
+        // Import main app code
+        import { createRouter } from './src/router.js';
+        import { AppStateProvider } from './src/state-enhanced.js';
+        
+        // Initialize app when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            AppStateProvider((state) => {
+                createRouter(document.getElementById('main-content'));
+            });
+        });
+    </script>
+</body>
+</html>

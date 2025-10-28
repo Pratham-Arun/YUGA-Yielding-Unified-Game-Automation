@@ -1,0 +1,70 @@
+{
+  "name": "Project",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Project name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Project description"
+    },
+    "project_type": {
+      "type": "string",
+      "enum": [
+        "3d_game",
+        "2d_game",
+        "vr_experience",
+        "mobile_game",
+        "web_game"
+      ],
+      "default": "3d_game"
+    },
+    "template": {
+      "type": "string",
+      "enum": [
+        "blank",
+        "fps",
+        "platformer",
+        "rpg",
+        "puzzle",
+        "racing"
+      ],
+      "default": "blank"
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "description": "Project thumbnail"
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "resolution_width": {
+          "type": "number",
+          "default": 1920
+        },
+        "resolution_height": {
+          "type": "number",
+          "default": 1080
+        },
+        "target_framerate": {
+          "type": "number",
+          "default": 60
+        },
+        "physics_enabled": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "last_opened": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "name",
+    "project_type"
+  ]
+}

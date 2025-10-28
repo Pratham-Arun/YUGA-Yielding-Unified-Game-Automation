@@ -1,0 +1,113 @@
+{
+  "name": "Scene",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Parent project ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Scene name"
+    },
+    "objects": {
+      "type": "array",
+      "description": "Scene objects hierarchy",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "position": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            }
+          },
+          "rotation": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            }
+          },
+          "scale": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number",
+                "default": 1
+              },
+              "y": {
+                "type": "number",
+                "default": 1
+              },
+              "z": {
+                "type": "number",
+                "default": 1
+              }
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "camera": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number",
+              "default": 0
+            },
+            "y": {
+              "type": "number",
+              "default": 5
+            },
+            "z": {
+              "type": "number",
+              "default": 10
+            }
+          }
+        },
+        "fov": {
+          "type": "number",
+          "default": 75
+        }
+      }
+    }
+  },
+  "required": [
+    "project_id",
+    "name"
+  ]
+}
