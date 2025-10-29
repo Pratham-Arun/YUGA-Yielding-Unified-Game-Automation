@@ -1,4 +1,5 @@
-import Ajv from 'ajv';
+// Use ESM-compatible Ajv for the browser
+import Ajv from 'https://esm.sh/ajv@6.12.6';
 
 const ajv = new Ajv();
 

@@ -2,8 +2,8 @@ import { Scene } from '../core/Scene.js';
 import { MeshNode, CameraNode, LightNode } from '../core/Node.js';
 import { RendererComponent, TransformComponent } from '../core/Component.js';
 import { el, clear } from '../ui/dom.js';
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.158.0/examples/jsm/controls/OrbitControls.js?module';
 
 export function Engine({ state }) {
   const el = document.createElement('div');

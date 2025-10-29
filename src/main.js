@@ -9,6 +9,7 @@ import { VisualScripting } from './views/VisualScripting.js';
 import { AIAssistant } from './views/AIAssistant.js';
 import { AssetGenerator } from './views/AssetGenerator.js';
 import { NewProject } from './views/NewProject.js';
+import './web-file-ops.js';
 
 const routes = [
   { path: '/', component: Dashboard, title: 'Dashboard' },

@@ -13,19 +13,27 @@ export function AIAssistant() {
   const controls = el('div', 'flex gap-4', [
     el('div', 'flex-1 space-y-2', [
       el('label', 'text-sm text-slate-400', 'Programming Language'),
-      el('select', 'w-full px-3 py-2 rounded border border-slate-400/30 bg-slate-800/50 text-slate-100', 
-        generator.getSupportedLanguages().map(lang =>
-          el('option', '', lang.name)
-        )
-      )
+      (() => {
+        const sel = el('select', 'w-full px-3 py-2 rounded border border-slate-400/30 bg-slate-800/50 text-slate-100');
+        const langs = generator.getSupportedLanguages();
+        langs.forEach(lang => {
+          const opt = el('option', '', lang.name);
+          opt.value = lang.id; // use stable id
+          sel.appendChild(opt);
+        });
+        sel.value = 'gdscript'; // default to Godot GDScript
+        return sel;
+      })()
     ]),
     el('div', 'flex-1 space-y-2', [
       el('label', 'text-sm text-slate-400', 'Template'),
-      el('select', 'w-full px-3 py-2 rounded border border-slate-400/30 bg-slate-800/50 text-slate-100',
-        generator.getTemplatesForLanguage('csharp').map(template =>
-          el('option', '', template)
-        )
-      )
+      (() => {
+        const sel = el('select', 'w-full px-3 py-2 rounded border border-slate-400/30 bg-slate-800/50 text-slate-100');
+        const templates = generator.getTemplatesForLanguage('gdscript');
+        templates.forEach(t => sel.appendChild(el('option', '', t)));
+        if (templates.length) sel.value = templates[0];
+        return sel;
+      })()
     ])
   ]);
 
@@ -84,11 +92,13 @@ export function AIAssistant() {
   // Update templates when language changes
   const [langSelect, templateSelect] = form.firstChild.getElementsByTagName('select');
   langSelect.addEventListener('change', () => {
-    const templates = generator.getTemplatesForLanguage(langSelect.value);
+    const languageId = langSelect.value; // id like 'gdscript'
+    const templates = generator.getTemplatesForLanguage(languageId);
     clear(templateSelect);
     templates.forEach(template => {
       templateSelect.appendChild(el('option', '', template));
     });
+    if (templates.length) templateSelect.value = templates[0];
   });
 
   // Generate button handler
@@ -96,7 +106,7 @@ export function AIAssistant() {
     const prompt = input.value.trim();
     if (!prompt) return;
     
-    const language = langSelect.value;
+    const language = langSelect.value; // id
     const template = templateSelect.value;
     
     try {
@@ -135,7 +145,8 @@ export function AIAssistant() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${result.context.name}${SUPPORTED_LANGUAGES[language].fileExtension}`;
+        const ext = generator.languages[language]?.fileExtension || '';
+        a.download = `${result.context.name}${ext}`;
         a.click();
         URL.revokeObjectURL(url);
       };

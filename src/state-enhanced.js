@@ -3,6 +3,7 @@
  * Handles project persistence, file operations, and app state
  */
 import { validateAndSave, loadAndValidate, createNew } from './core/storage.js';
+import { backend } from './api.js';
 
 const initial = {
   theme: 'dark',
@@ -75,8 +76,28 @@ export function AppStateProvider(cb) {
       await Promise.all(state.assets.map(asset => validateAndSave('asset', asset)));
       await Promise.all(state.scripts.map(script => validateAndSave('script', script)));
       
+      if (await backend.isAvailable()) {
+        try {
+          await backend.upsertProject({ id: state.project.name, name: state.project.name, data: getProjectData() });
+        } catch (e) {
+          console.warn('Backend save failed, falling back to client download:', e);
+        }
+      }
+
       if (window.electronAPI) {
         const result = await window.electronAPI.saveProject(state.project);
+        if (result.success) {
+          setState({ 
+            project: { 
+              ...state.project, 
+              path: result.path,
+              lastSaved: Date.now()
+            }
+          });
+          return { success: true, message: `Project saved to ${result.path}` };
+        }
+      } else if (window.fileOperations && typeof window.fileOperations.saveProject === 'function') {
+        const result = await window.fileOperations.saveProject(state.project);
         if (result.success) {
           setState({ 
             project: { 
@@ -100,8 +121,52 @@ export function AppStateProvider(cb) {
    */
   async function loadProjectFromFile() {
     try {
+      if (await backend.isAvailable()) {
+        try {
+          const list = await backend.listProjects();
+          if (Array.isArray(list) && list.length > 0) {
+            const p = await backend.getProject(list[0].id);
+            const data = p.data;
+            const validProject = await loadAndValidate('project', data.project || state.project);
+            const validScenes = await Promise.all((data.scenes || []).map(scene => loadAndValidate('scene', scene)));
+            const validAssets = await Promise.all((data.assets || []).map(asset => loadAndValidate('asset', asset)));
+            const validScripts = await Promise.all((data.scripts || []).map(script => loadAndValidate('script', script)));
+            setState({ project: validProject, scenes: validScenes, assets: validAssets, scripts: validScripts, animations: data.animations || [] });
+            return { success: true, message: 'Project loaded from backend' };
+          }
+        } catch (e) {
+          console.warn('Backend load failed, falling back to client picker:', e);
+        }
+      }
+
       if (window.electronAPI) {
         const result = await window.electronAPI.loadProject();
+        if (result.success) {
+          const data = result.data;
+          
+          // Validate loaded data
+          const validProject = await loadAndValidate('project', data.project || state.project);
+          const validScenes = await Promise.all(
+            (data.scenes || []).map(scene => loadAndValidate('scene', scene))
+          );
+          const validAssets = await Promise.all(
+            (data.assets || []).map(asset => loadAndValidate('asset', asset))
+          );
+          const validScripts = await Promise.all(
+            (data.scripts || []).map(script => loadAndValidate('script', script))
+          );
+
+          setState({
+            project: validProject,
+            scenes: validScenes,
+            assets: validAssets,
+            scripts: validScripts,
+            animations: data.animations || []
+          });
+          return { success: true, message: 'Project loaded and validated' };
+        }
+      } else if (window.fileOperations && typeof window.fileOperations.loadProject === 'function') {
+        const result = await window.fileOperations.loadProject();
         if (result.success) {
           const data = result.data;
           
@@ -140,6 +205,11 @@ export function AppStateProvider(cb) {
   async function exportGame(format = 'webgl') {
     if (window.electronAPI) {
       const result = await window.electronAPI.exportGame(format);
+      if (result.success) {
+        return { success: true, path: result.path };
+      }
+    } else if (window.fileOperations && typeof window.fileOperations.exportGame === 'function') {
+      const result = await window.fileOperations.exportGame(format);
       if (result.success) {
         return { success: true, path: result.path };
       }

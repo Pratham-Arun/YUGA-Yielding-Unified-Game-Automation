@@ -1,7 +1,5 @@
 import { navigate } from '../router.js';
-
 import { el, clear } from '../ui/dom.js';
-import { navigate } from '../router.js';
 
 export function Dashboard() {
   const container = el('div', 'h-full overflow-y-auto p-6 space-y-6');
@@ -23,7 +21,7 @@ export function Dashboard() {
   const [newLink, openLink] = header.lastChild.children;
   newLink.href = '#/new-project';
   openLink.href = '#/engine';
-  el.appendChild(header);
+  container.appendChild(header);
 
   // Feature cards
   const cardsWrap = el('div', 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4');
@@ -53,7 +51,7 @@ export function Dashboard() {
     card.setAttribute('aria-label', `${c.t}: ${c.d}`);
     cardsWrap.appendChild(card);
   });
-  el.appendChild(cardsWrap);
+  container.appendChild(cardsWrap);
 
   // Lower panels
   const lower = el('div', 'grid grid-cols-1 lg:grid-cols-3 gap-4');
@@ -75,6 +73,6 @@ export function Dashboard() {
     lower.appendChild(panel);
   });
   
-  container.append(header, cardsWrap, lower);
+  container.appendChild(lower);
   return container;
 }
