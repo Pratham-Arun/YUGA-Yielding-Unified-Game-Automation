@@ -2,25 +2,91 @@
 
 <img src="./public/yuga-logo.png" alt="YUGA Engine Logo" width="200" height="200" />
 
-# 🎮 YUGA Engine
+# YUGA Engine 🎮
+## Yielding Unified Game Automation
 
-**Yielding Unified Game Automation**
-
-*AI-Powered Game Development Platform*
-
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/yourusername/yuga-engine)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![AI Powered](https://img.shields.io/badge/AI-Powered-purple.svg)](https://github.com/yourusername/yuga-engine)
-
-**"Cursor AI + Unreal Engine + Midjourney for Game Creation"**
+![YUGA Engine](https://img.shields.io/badge/Version-2.0.0-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Status-Active%20Development-yellow)
 
 </div>
 
+**YUGA** is a next-generation game development engine that combines professional-grade tools with AI-powered automation to streamline the entire game creation process. Built for developers of all skill levels, YUGA offers an intuitive interface with powerful features that rival industry-standard engines.
+
 ---
 
-## 🌟 Overview
+## 🌟 Features
 
-YUGA Engine is a revolutionary game development platform that combines professional-grade tools with cutting-edge AI automation. Generate code, assets, and entire game systems using natural language - making game development faster, more intuitive, and accessible to everyone.
+### Core Engine Suite
+
+#### 🏠 Dashboard
+Your central command center for navigating the entire YUGA ecosystem. Access all tools, monitor project status, and manage your game development workflow from a unified interface.
+
+#### 🎯 Game Engine
+Full-featured Unity-style 3D editor with:
+- **Scene Hierarchy Management** - Organize game objects in an intuitive tree structure
+- **Inspector Panel** - Real-time property editing with transform controls
+- **Object Manipulation** - Move, rotate, scale with visual gizmos
+- **Multiple Object Types** - Cubes, spheres, cylinders, lights, cameras
+- **View Modes** - Perspective, top, front, right views
+- **Fullscreen Mode** - Immersive editing experience
+- **Real-time 3D Preview** - Powered by Three.js
+
+#### 💻 Script Editor
+Professional code editor featuring:
+- **Syntax Highlighting** - Full JavaScript/C# language support
+- **File Explorer** - Organized project structure navigation
+- **Error Detection** - Real-time debugging and validation
+- **AI Code Suggestions** - Intelligent code completion
+- **Multi-file Tabs** - Work on multiple scripts simultaneously
+
+#### 🎬 Animation Editor
+Timeline-based animation system with:
+- **Keyframe Timeline** - Visual track-based animation
+- **Animation Curves** - Smooth interpolation controls
+- **Layer Management** - Organize animations with visibility controls
+- **3D Preview** - Real-time animation playback
+- **Frame Controls** - Precise frame-by-frame editing
+
+#### 🔗 Visual Scripting
+Node-based programming environment:
+- **Drag-and-Drop Interface** - Intuitive node creation
+- **Multiple Node Types** - Events, actions, logic, math, variables
+- **Visual Connections** - Click-to-connect node system
+- **Real-time Execution** - See logic flow as you build
+- **Node Deletion** - Easy cleanup and reorganization
+
+#### 🤖 AI Code Assistant
+AI-powered development companion:
+- **Natural Language to Code** - Describe functionality, get code
+- **Multi-language Support** - Generate code in various languages
+- **Code Explanation** - Understand existing code
+- **Code Refactoring** - Improve code quality
+- **Documentation Generation** - Auto-generate docs
+- **Unit Test Generation** - Create tests automatically
+
+#### 🎨 Asset Generator
+AI-driven asset creation tool:
+- **3D Model Generation** - Create models from descriptions
+- **Texture Synthesis** - Generate materials and textures
+- **Multiple Art Styles** - Realistic, cartoon, low-poly, pixel art
+- **Quality Settings** - Control output detail
+- **Download Assets** - Export generated content
+
+#### 🌍 World Builder (NEW!)
+Complete world generation system:
+- **AI World Generation** - Create entire worlds from text
+- **NPC System** - Generate characters with personalities
+- **Quest Generator** - Create quests with objectives
+- **Building Placement** - Auto-generate structures
+- **Environment Settings** - Lighting, weather, ambience
+- **Unity/Godot Export** - JSON format for game engines
+
+#### 🚀 Project Creator
+Guided project setup wizard:
+- **Template Selection** - Start with pre-configured project types
+- **Project Customization** - Tailor settings to your needs
+- **AI Generation Options** - Automatically generate starter content
 
 ---
 
