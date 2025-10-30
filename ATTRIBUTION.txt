@@ -1,0 +1,61 @@
+YUGA Engine - Third-Party Attributions
+========================================
+
+This software incorporates code, design patterns, and concepts from the following open-source projects:
+
+---
+
+1. Godot Engine
+   License: MIT License
+   Copyright: (c) 2014-present Godot Engine contributors
+              (c) 2007-2014 Juan Linietsky, Ariel Manzur
+   Website: https://godotengine.org
+   Repository: https://github.com/godotengine/godot
+   
+   Used in:
+   - Game Engine architecture and scene system
+   - Node-based visual scripting concepts
+   - Transform and camera control systems
+   - Inspector panel and property editing
+   - Scene hierarchy management
+   
+   Full license text: See GODOT_LICENSE.txt
+
+---
+
+2. Three.js
+   License: MIT License
+   Copyright: (c) 2010-2024 three.js authors
+   Website: https://threejs.org
+   Repository: https://github.com/mrdoob/three.js
+   
+   Used in:
+   - 3D rendering and visualization
+   - Camera controls and scene management
+   - Geometry and material systems
+
+---
+
+3. React
+   License: MIT License
+   Copyright: (c) Meta Platforms, Inc. and affiliates
+   Website: https://react.dev
+   
+   Used in:
+   - UI framework and component system
+
+---
+
+4. Lucide Icons
+   License: ISC License
+   Website: https://lucide.dev
+   
+   Used in:
+   - UI icons throughout the application
+
+---
+
+YUGA Engine is grateful to all open-source contributors who make
+projects like this possible. We stand on the shoulders of giants.
+
+For questions about licensing or attribution, please contact the YUGA Engine team.

@@ -10,14 +10,14 @@ const isDev = process.env.NODE_ENV === 'development' || process.argv.includes('-
 
 let mainWindow;
 
-function createWindow() {
+async function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1920,
     height: 1080,
     minWidth: 1200,
     minHeight: 800,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, 'preload.cjs'),
       nodeIntegration: false,
       contextIsolation: true,
       enableRemoteModule: false,
@@ -27,9 +27,10 @@ function createWindow() {
     icon: fs.existsSync(path.join(__dirname, '../assets/icon.png')) ? path.join(__dirname, '../assets/icon.png') : undefined
   });
 
+  const port = process.env.VITE_PORT || 3002;
   const startUrl = isDev
-    ? 'http://localhost:3000'
-    : `file://${path.join(__dirname, '../index.html')}`;
+    ? `http://localhost:${port}`
+    : `file://${path.join(__dirname, '../dist/index.html')}`;
 
   mainWindow.loadURL(startUrl);
 

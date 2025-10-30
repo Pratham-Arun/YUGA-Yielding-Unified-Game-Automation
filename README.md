@@ -1,10 +1,26 @@
+<div align="center">
+
+<img src="./public/yuga-logo.png" alt="YUGA Engine Logo" width="200" height="200" />
+
 # 🎮 YUGA Engine
 
 **Yielding Unified Game Automation**
 
-A next-generation game development engine combining professional-grade tools with AI-powered automation. Built as a desktop application using Electron, Three.js, and modern web technologies.
+*AI-Powered Game Development Platform*
 
-![YUGA Engine](https://i.ibb.co/SXq1Z7Mj/Untitled-design.png)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/yourusername/yuga-engine)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![AI Powered](https://img.shields.io/badge/AI-Powered-purple.svg)](https://github.com/yourusername/yuga-engine)
+
+**"Cursor AI + Unreal Engine + Midjourney for Game Creation"**
+
+</div>
+
+---
+
+## 🌟 Overview
+
+YUGA Engine is a revolutionary game development platform that combines professional-grade tools with cutting-edge AI automation. Generate code, assets, and entire game systems using natural language - making game development faster, more intuitive, and accessible to everyone.
 
 ---
 
@@ -316,12 +332,41 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
 ---
 
-## 🙏 Acknowledgments
+## 🙏 Acknowledgments & Attribution
 
-- **Three.js** - 3D rendering engine
-- **Electron** - Desktop framework
-- **Tailwind CSS** - Styling system
-- **Godot Engine** - Architectural inspiration
+YUGA Engine incorporates code, design patterns, and concepts from the following open-source projects:
+
+### Godot Engine
+- **License**: MIT License
+- **Copyright**: (c) 2014-present Godot Engine contributors, (c) 2007-2014 Juan Linietsky, Ariel Manzur
+- **Website**: https://godotengine.org
+- **Used in**: Scene system architecture, node-based hierarchy, inspector panels, transform controls
+- **Full License**: See [GODOT_LICENSE.txt](GODOT_LICENSE.txt)
+
+### Three.js
+- **License**: MIT License
+- **Website**: https://threejs.org
+- **Used in**: 3D rendering, camera controls, geometry systems
+
+### React
+- **License**: MIT License
+- **Copyright**: (c) Meta Platforms, Inc.
+- **Used in**: UI framework and component system
+
+### Electron
+- **License**: MIT License
+- **Used in**: Desktop application framework
+
+### Tailwind CSS
+- **License**: MIT License
+- **Used in**: Styling and design system
+
+### Lucide Icons
+- **License**: ISC License
+- **Website**: https://lucide.dev
+- **Used in**: UI icons
+
+For complete attribution details, see [ATTRIBUTION.txt](ATTRIBUTION.txt).
 
 ---
 

@@ -1,0 +1,563 @@
+================================================================================
+                        YUGA ENGINE - SYSTEM ARCHITECTURE
+                     Yielding Unified Game Automation Engine
+================================================================================
+
++---------------------------------------------------------------+
+|                         YUGA ENGINE                          |
+|---------------------------------------------------------------|
+|      🧠 AI Layer (LangChain + Multi-Model Router)             |
+|      🎨 Graphics & Asset Layer (3D/2D Gen + Scene Import)     |
+|      💻 Code Intelligence Layer (Editor + Logic Gen)          |
+|      🌍 World & Story AI (NPC, Scene, Balancing)              |
+|      🖥️ UI/UX Layer (Dashboard, AI Panels, Inspector)         |
+|      ☁️ Backend Layer (Storage, Auth, API Gateway)            |
++---------------------------------------------------------------+
+
+================================================================================
+1️⃣ SYSTEM OVERVIEW
+================================================================================
+
+YUGA Engine is a next-generation AI-powered game development platform that
+integrates multiple AI models to automate game creation workflows.
+
+Core Philosophy:
+- Natural language → Game assets, code, and worlds
+- Multi-model AI routing for optimal results
+- Unity/Godot integration via REST APIs
+- Local + Cloud AI model support
+- Memory-aware context handling
+
+================================================================================
+2️⃣ AI LAYER — THE CORE BRAIN
+================================================================================
+
+Purpose: Multi-AI integration hub using LangChain + API router
+
+Responsibilities:
+✓ Route requests between GPT-4, Claude, Mixtral, etc.
+✓ Maintain short/long memory using Vector DB (ChromaDB or Pinecone)
+✓ Handle natural language → code, texture, or scene conversion
+✓ Context-aware generation with project memory
+
+Tech Stack:
+- LangChain.js (AI orchestration)
+- LlamaIndex (project memory + context)
+- Ollama (run local models like Mixtral or CodeLlama)
+- OpenAI + Anthropic + Gemini APIs
+- ChromaDB / Pinecone (vector storage)
+
+Unity Integration:
+- Custom Unity Editor window → "AI Command Console"
+- ScriptableObject AIManager.cs to send API requests
+- Backend: Node.js server with Express
+
+API Endpoints:
+POST /api/ai/route          - Smart model routing
+POST /api/ai/memory/store   - Store context
+GET  /api/ai/memory/query   - Retrieve context
+POST /api/ai/chat           - Conversational AI
+
+Implementation Status: ✓ Partial (Router implemented, Memory pending)
+
+================================================================================
+3️⃣ CODE INTELLIGENCE LAYER
+================================================================================
+
+Purpose: AI-powered code generation, debugging, and automation
+
+Models Used:
+- GPT-4 / Claude 3.5 (primary generation & debugging)
+- Mixtral / StarCoder (local fallback)
+- DeepSeek-Coder (specialized code model)
+- Phind-Code (code reasoning)
+
+Key Features:
+✓ In-editor Monaco-style AI Code Editor
+✓ Auto-completion and debugging assistant
+✓ AI "Explain This Script" button
+✓ "Generate Behavior" button → Unity C# scripts
+✓ Context-aware suggestions
+✓ Multi-file generation
+✓ Unit test generation
+
+Unity Integration:
+- Custom Editor tool window (like Console)
+- Backend via REST API:
+  POST /api/ai/generate-code
+  POST /api/ai/explain-code
+  POST /api/ai/refactor-code
+  POST /api/ai/generate-tests
+- Option to run offline via Ollama + local LLM
+
+Implementation Status: ✓ Complete
+
+================================================================================
+4️⃣ GRAPHICS & ASSET GENERATION LAYER
+================================================================================
+
+Purpose: AI-driven asset creation for textures, models, and environments
+
+Models Used:
+- Stable Diffusion XL / Leonardo.ai → textures, concepts, icons
+- Meshy.ai / Kaedim3D → 2D → 3D model conversion
+- Blockade Labs → skyboxes/environment panoramas
+- Scenario.gg → consistent game assets
+- DALL·E 3 → UI elements and concept art
+
+Key Features:
+✓ "Generate Texture" button in Unity Material Inspector
+✓ "Generate 3D Model" → uploads reference and gets back .GLB
+✓ "AI Concept Mode" → creates stylized prototype art
+✓ Batch generation with style presets
+✓ Asset library and management
+
+Integration Flow:
+Unity Editor (user clicks "Generate")
+    ↓
+AI Asset Manager (C# script)
+    ↓
+Backend API (Node.js)
+    ↓
+Stable Diffusion / Meshy / Scenario APIs
+    ↓
+Return → Save as .PNG/.GLB → Import to Assets/
+
+API Endpoints:
+POST /api/ai/generate-asset
+POST /api/ai/generate-texture
+POST /api/ai/generate-3d-model
+POST /api/ai/generate-skybox
+
+Implementation Status: ✓ Partial (Frontend complete, API integration pending)
+
+================================================================================
+5️⃣ WORLD & STORY AI LAYER
+================================================================================
+
+Purpose: Generate complete game worlds with NPCs, quests, and narratives
+
+Models Used:
+- GPT-4 + Claude 3.5 → quest/story generation
+- Inworld.ai SDK → NPC intelligence
+- Gemini 1.5 → game logic balancing
+
+Key Features:
+✓ AI World Builder: "Make a medieval blacksmith village" → auto-spawns
+✓ AI NPC Dialogue Editor → dynamic conversations
+✓ AI Quest Generator → JSON storyline format
+✓ Environment generation (lighting, weather, ambience)
+✓ Unity/Godot prefab export
+
+Unity Integration:
+- "AI World Builder" Editor window
+- Prefab templates → dynamically instantiated from AI responses
+- NPCs linked via Inworld SDK for real-time conversation
+
+API Endpoints:
+POST /api/ai/generate-world
+POST /api/ai/generate-npc-dialogue
+POST /api/ai/generate-quest
+
+Implementation Status: ✓ Complete
+
+================================================================================
+6️⃣ ANIMATION & VOICE LAYER
+================================================================================
+
+Purpose: AI-generated animations and voice acting
+
+Models Used:
+- DeepMotion → motion capture from text/video
+- ElevenLabs / RVC → voice generation
+- OpenAI TTS → fallback text-to-speech
+- Altered Studio → voice cloning
+
+Features:
+- "Animate Character" → input: text ("walk tiredly and look left") 
+  → output: FBX animation
+- "Generate Voice" → converts dialogue to speech
+- "Auto Cutscene" → combines generated animations + voiceovers
+- Voice cloning for consistent character voices
+
+Integration:
+- AI Animation Manager (Unity script)
+- REST API → DeepMotion + ElevenLabs
+- Result saved to /Assets/Animations/
+
+API Endpoints:
+POST /api/ai/generate-animation
+POST /api/ai/generate-voice
+POST /api/ai/generate-cutscene
+
+Implementation Status: ⏳ Planned
+
+================================================================================
+7️⃣ BACKEND LAYER
+================================================================================
+
+Purpose: API gateway, storage, authentication, and AI orchestration
+
+Tech Stack:
+✓ Node.js + Express (AI routing and API management)
+✓ better-sqlite3 (local project storage)
+- Supabase / Firebase (Auth + DB + File storage) [Planned]
+- Railway.app / Render.com (free hosting) [Planned]
+
+Architecture:
+- RESTful API design
+- JWT authentication (planned)
+- File upload handling
+- AI model routing logic
+- Rate limiting and caching
+- WebSocket support for real-time updates (planned)
+
+Current Endpoints:
+✓ /api/projects/* - Project CRUD
+✓ /api/ai/generate-code - Code generation
+✓ /api/ai/generate-asset - Asset generation
+✓ /api/ai/generate-world - World generation
+✓ /api/ai/generate-npc-dialogue - NPC dialogue
+✓ /api/ai/generate-quest - Quest generation
+✓ /api/unity/* - Unity integration endpoints
+
+Implementation Status: ✓ Core complete, Auth/Cloud pending
+
+================================================================================
+8️⃣ UI/UX LAYER
+================================================================================
+
+Purpose: User interface for web dashboard and Unity editor panels
+
+Tools:
+✓ React (external web dashboard)
+✓ TailwindCSS (design system)
+✓ Lucide Icons (icon library)
+✓ Three.js (3D preview)
+- Figma + Magician Plugin (design prototype) [Planned]
+- Locofy.ai (convert Figma → React code) [Planned]
+
+Unity Integration:
+Custom UI panels for:
+- AI Console (command input)
+- AI Asset Generator (texture/model generation)
+- Scene Builder (world composition)
+- Code Editor (AI-assisted coding)
+- Inspector (property editing)
+
+Web Dashboard Pages:
+✓ Dashboard - Overview and quick actions
+✓ Projects - Project management
+✓ Game Engine - 3D scene editor
+✓ Animation Editor - Timeline-based animation
+✓ Visual Scripting - Node-based programming
+✓ Asset Generator - AI asset creation
+✓ World Builder - AI world generation
+✓ AI Models - Model configuration
+✓ Settings - User preferences
+
+Implementation Status: ✓ Web dashboard complete, Unity panels planned
+
+================================================================================
+9️⃣ MULTI-MODEL ROUTING SYSTEM
+================================================================================
+
+Flow Diagram:
+
+Unity Command Input
+        ↓
+Node.js Router (Smart Selection)
+        ↓
+    ┌───┴───┬───────┬──────────┬────────────┐
+    ↓       ↓       ↓          ↓            ↓
+OpenAI  Claude  Mixtral  Stable-Diff   Meshy-3D
+GPT-4   3.5     Local    (Textures)    (Models)
+    ↓       ↓       ↓          ↓            ↓
+    └───┬───┴───────┴──────────┴────────────┘
+        ↓
+Response Handler (Format + Validate)
+        ↓
+Unity Output Panel / Web Dashboard
+
+Routing Logic:
+- Code generation → GPT-4 or Claude (best accuracy)
+- Local fallback → Mixtral via Ollama (offline mode)
+- Textures → Stable Diffusion XL (cost-effective)
+- 3D models → Meshy.ai (specialized)
+- Dialogue → Claude 3.5 (context-aware)
+- Balancing → Gemini 1.5 (reasoning)
+
+Implementation:
+File: backend/services/modelRouter.js
+- analyzeRequest(prompt, type)
+- selectBestModel(requirements)
+- routeToModel(model, prompt, options)
+- handleResponse(response, format)
+
+Implementation Status: ✓ Basic routing, Advanced selection pending
+
+================================================================================
+🔟 AI MEMORY & CONTEXT HANDLING
+================================================================================
+
+Memory Types:
+
+1. Short-term Memory (Session Context)
+   - Current conversation history
+   - Active project context
+   - Recent commands and results
+   - Implementation: LangChain memory buffers
+   - Storage: In-memory (Redis for production)
+
+2. Long-term Memory (Vector Database)
+   - Project knowledge base
+   - Code patterns and templates
+   - Asset library metadata
+   - User preferences and history
+   - Implementation: ChromaDB or Pinecone
+   - Storage: Persistent vector embeddings
+
+3. Project Context (Structured Data)
+   - Scene hierarchy and objects
+   - Script dependencies
+   - Asset references
+   - AI generation history
+   - Implementation: JSON + SQLite
+   - Storage: Local database
+
+Memory Architecture:
+
+User Input
+    ↓
+Context Retriever (Query vector DB)
+    ↓
+Relevant Context (Top-K results)
+    ↓
+Prompt Builder (Inject context)
+    ↓
+AI Model (Context-aware generation)
+    ↓
+Response + Store (Update memory)
+
+API Endpoints:
+POST /api/memory/store       - Store new context
+GET  /api/memory/query       - Retrieve relevant context
+POST /api/memory/embed       - Create embeddings
+DELETE /api/memory/clear     - Clear session memory
+
+Implementation Status: ⏳ Planned
+
+================================================================================
+1️⃣1️⃣ UNITY INTEGRATION ARCHITECTURE
+================================================================================
+
+Unity C# Components:
+
+1. AIManager.cs (ScriptableObject)
+   - Manages API connections
+   - Handles authentication
+   - Caches responses
+   - Offline mode support
+
+2. AICommandConsole.cs (Editor Window)
+   - Natural language input
+   - Command history
+   - Real-time feedback
+   - Multi-line support
+
+3. AIAssetGenerator.cs (Editor Tool)
+   - Texture generation UI
+   - 3D model import
+   - Batch processing
+   - Preview system
+
+4. AICodeEditor.cs (Editor Window)
+   - Monaco-style editor
+   - AI completion
+   - Inline suggestions
+   - Error detection
+
+5. AIWorldBuilder.cs (Editor Tool)
+   - World generation UI
+   - Prefab instantiation
+   - NPC placement
+   - Quest system integration
+
+Communication Flow:
+Unity C# → HTTP Request → Node.js Backend → AI APIs → Response → Unity
+
+Implementation Status: ⏳ Planned (Web version complete)
+
+================================================================================
+1️⃣2️⃣ DEPLOYMENT & HOSTING
+================================================================================
+
+Development:
+- Local: localhost:3000 (React) + localhost:4000 (Node.js)
+- Database: SQLite (local file)
+- AI Models: API keys in .env file
+
+Production Options:
+
+Frontend (React):
+- Vercel (recommended - free tier)
+- Netlify (alternative)
+- GitHub Pages (static hosting)
+
+Backend (Node.js):
+- Railway.app (free tier with limitations)
+- Render.com (free tier)
+- Fly.io (free allowance)
+- Heroku (paid)
+
+Database:
+- Supabase (PostgreSQL + Auth + Storage)
+- Firebase (NoSQL + Auth + Hosting)
+- PlanetScale (MySQL)
+
+Vector Database:
+- Pinecone (free tier: 1 index, 100K vectors)
+- Weaviate Cloud (free tier)
+- ChromaDB (self-hosted)
+
+Implementation Status: ⏳ Planned
+
+================================================================================
+1️⃣3️⃣ SECURITY & BEST PRACTICES
+================================================================================
+
+API Key Management:
+✓ Environment variables (.env file)
+✓ Never commit keys to Git
+- Rotate keys regularly
+- Use separate keys for dev/prod
+
+Authentication:
+- JWT tokens for API access
+- OAuth for social login
+- API rate limiting
+- Request validation
+
+Data Privacy:
+- User data encryption
+- Secure file uploads
+- GDPR compliance
+- Data retention policies
+
+Implementation Status: ⏳ Planned
+
+================================================================================
+1️⃣4️⃣ ROADMAP & IMPLEMENTATION PRIORITY
+================================================================================
+
+✅ COMPLETED:
+- Basic project structure
+- React frontend with routing
+- Node.js backend with Express
+- Code generation API
+- Asset generation UI
+- World builder system
+- Game engine with 3D editing
+- Visual scripting with node connections
+- Animation editor
+- AI Models configuration page
+- Multi-model support (GPT-4, Claude, Gemini, etc.)
+
+🚧 IN PROGRESS:
+- Asset generation API integration
+- Memory & context system
+- Advanced model routing
+
+📋 PLANNED (Priority Order):
+
+Phase 1 - Core AI Enhancement:
+1. Implement ChromaDB for vector storage
+2. Add LangChain memory management
+3. Advanced model routing logic
+4. Context-aware generation
+
+Phase 2 - Unity Integration:
+1. Unity plugin development
+2. Editor window implementations
+3. Prefab system integration
+4. Real-time sync
+
+Phase 3 - Animation & Voice:
+1. DeepMotion API integration
+2. ElevenLabs voice generation
+3. Animation import pipeline
+4. Cutscene automation
+
+Phase 4 - Production Ready:
+1. Authentication system
+2. Cloud deployment
+3. Database migration
+4. Performance optimization
+
+Phase 5 - Advanced Features:
+1. Multiplayer support
+2. Asset marketplace
+3. Collaboration tools
+4. Analytics dashboard
+
+================================================================================
+1️⃣5️⃣ TECHNICAL SPECIFICATIONS
+================================================================================
+
+System Requirements:
+- Node.js 18+ (backend)
+- React 18+ (frontend)
+- Modern browser (Chrome, Firefox, Edge)
+- 8GB RAM minimum
+- GPU recommended for 3D editing
+
+Supported Platforms:
+- Windows 10/11
+- macOS 11+
+- Linux (Ubuntu 20.04+)
+
+Unity Requirements:
+- Unity 2021.3 LTS or newer
+- .NET Standard 2.1
+- TextMeshPro package
+
+API Rate Limits:
+- OpenAI: 3,500 requests/min (tier dependent)
+- Anthropic: 50 requests/min (free tier)
+- Google: 60 requests/min (free tier)
+- Stability AI: 150 requests/min
+
+================================================================================
+1️⃣6️⃣ CONTRIBUTING & DEVELOPMENT
+================================================================================
+
+Setup Instructions:
+1. Clone repository
+2. Install dependencies: npm install
+3. Copy .env.example to .env
+4. Add API keys
+5. Run dev server: npm run dev
+
+Code Structure:
+/client          - React frontend
+/backend         - Node.js API server
+/unity-plugin    - Unity C# scripts (planned)
+/docs            - Documentation
+
+Coding Standards:
+- ESLint for JavaScript
+- Prettier for formatting
+- JSDoc for documentation
+- Git commit conventions
+
+================================================================================
+END OF ARCHITECTURE DOCUMENT
+================================================================================
+
+For questions or contributions, visit:
+GitHub: https://github.com/yourusername/yuga-engine
+Documentation: Coming soon
+Discord: Coming soon
+
+Last Updated: October 30, 2025
+Version: 2.0.0
