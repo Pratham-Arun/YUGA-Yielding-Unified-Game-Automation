@@ -3,58 +3,23 @@
   "version": "2.0.0",
   "description": "YUGA Engine - Yielding Unified Game Automation with AI",
   "type": "module",
-  "main": "electron/main.cjs",
+  "main": "src-tauri/src/main.rs",
   "author": "YUGA Engine Team",
   "license": "MIT",
   "scripts": {
     "dev": "concurrently \"npm run api\" \"npm run client\"",
-    "dev:electron": "concurrently \"npm run api\" \"npm run client\" \"npm run electron:dev\"",
+    "dev:tauri": "concurrently \"npm run api\" \"tauri dev\"",
     "client": "vite",
     "api": "node backend/server.js",
-    "electron:dev": "wait-on http-get://localhost:3000 http-get://localhost:3001 http-get://localhost:3002 && cross-env NODE_ENV=development electron .",
-    "electron:build": "vite build && electron-builder",
+    "tauri": "tauri",
     "build": "vite build",
-    "build:win": "vite build && electron-builder --win",
-    "build:mac": "vite build && electron-builder --mac",
-    "build:linux": "vite build && electron-builder --linux",
-    "build:all": "vite build && electron-builder -mwl",
+    "build:tauri": "tauri build",
+    "build:win": "tauri build --target x86_64-pc-windows-msvc",
+    "build:mac": "tauri build --target x86_64-apple-darwin",
+    "build:linux": "tauri build --target x86_64-unknown-linux-gnu",
+    "build:all": "tauri build",
     "preview": "vite preview",
     "start": "npm run dev"
-  },
-  "build": {
-    "appId": "com.yugaengine.app",
-    "productName": "YUGA Engine",
-    "directories": {
-      "output": "release",
-      "buildResources": "public"
-    },
-    "files": [
-      "dist/**/*",
-      "electron/**/*",
-      "backend/**/*",
-      "node_modules/**/*",
-      "package.json"
-    ],
-    "win": {
-      "target": ["nsis", "portable"],
-      "icon": "public/yuga-logo.png"
-    },
-    "mac": {
-      "target": ["dmg", "zip"],
-      "icon": "public/yuga-logo.png",
-      "category": "public.app-category.developer-tools"
-    },
-    "linux": {
-      "target": ["AppImage", "deb"],
-      "icon": "public/yuga-logo.png",
-      "category": "Development"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
-    }
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
@@ -62,6 +27,7 @@
     "@babel/traverse": "^7.28.5",
     "@google/generative-ai": "^0.21.0",
     "@monaco-editor/react": "^4.6.0",
+    "@tauri-apps/api": "^2.9.0",
     "ajv": "^6.12.6",
     "axios": "^1.7.9",
     "better-sqlite3": "^12.4.1",
@@ -80,17 +46,14 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^2.9.2",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.16",
     "concurrently": "^9.2.1",
-    "cross-env": "^10.1.0",
-    "electron": "^39.0.0",
-    "electron-builder": "^26.0.12",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.4.17",
-    "vite": "^6.0.7",
-    "wait-on": "^9.0.1"
+    "vite": "^6.0.7"
   }
 }

@@ -47,3 +47,11 @@ coverage/
 # OS
 Thumbs.db
 .DS_Store
+
+# Tauri
+src-tauri/target/
+src-tauri/WixTools/
+
+# Electron (legacy - can be removed after migration)
+electron/
+release/

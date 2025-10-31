@@ -1,15 +1,9 @@
-<div align="center">
-
-<img src="./public/yuga-logo.png" alt="YUGA Engine Logo" width="200" height="200" />
-
 # YUGA Engine 🎮
 ## Yielding Unified Game Automation
 
 ![YUGA Engine](https://img.shields.io/badge/Version-2.0.0-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/Status-Active%20Development-yellow)
-
-</div>
 
 **YUGA** is a next-generation game development engine that combines professional-grade tools with AI-powered automation to streamline the entire game creation process. Built for developers of all skill levels, YUGA offers an intuitive interface with powerful features that rival industry-standard engines.
 
@@ -190,57 +184,43 @@ cd c:\Users\Pratham arun\source\repos\YUGA
 npm install
 ```
 
-3. **Install Rust (required for Tauri)**
-   - Windows: Download from https://rustup.rs/
-   - Run: `rustup-init.exe` and follow prompts
-
-4. **Run in development mode (web only)**
+3. **Run in development mode**
 ```bash
 npm run dev
 ```
 
-The web app will run on `http://localhost:3000`.
+The app will launch automatically with the web server running on `http://localhost:3000`.
 
-5. **Run as desktop app**
-```bash
-npm run dev:tauri
-```
-
-### Building Standalone Desktop App
+### Building Standalone App
 
 **Windows:**
 ```bash
-npm run build:win
+npm run build-win
 ```
 
 **macOS:**
 ```bash
-npm run build:mac
+npm run build-mac
 ```
 
 **Linux:**
 ```bash
-npm run build:linux
+npm run build-linux
 ```
 
-**All platforms:**
-```bash
-npm run build:all
-```
-
-Installers will be created in the `src-tauri/target/release/bundle/` folder.
+Installers will be created in the `dist/` folder.
 
 ---
 
 ## 📊 Technology Stack
 
-- **Frontend Framework**: React 18 with Vite
+- **Frontend Framework**: Vanilla JavaScript (ES6+)
 - **Styling**: Tailwind CSS
-- **3D Rendering**: Three.js r158
-- **Desktop Framework**: Tauri (Rust-based)
-- **State Management**: Zustand
-- **Routing**: React Router
-- **Build Tool**: Vite + Tauri
+- **3D Rendering**: Three.js r128
+- **Desktop Framework**: Electron
+- **State Management**: React-like hooks pattern
+- **Routing**: Client-side hash routing
+- **Build Tool**: Electron Builder
 
 ---
 
@@ -303,12 +283,9 @@ Installers will be created in the `src-tauri/target/release/bundle/` folder.
 
 ```
 YUGA/
-├── src-tauri/
-│   ├── src/
-│   │   └── main.rs          # Tauri Rust backend
-│   ├── Cargo.toml           # Rust dependencies
-│   ├── tauri.conf.json      # Tauri configuration
-│   └── build.rs             # Build script
+├── electron/
+│   ├── main.js              # Electron main process
+│   └── preload.js           # Secure IPC bridge
 ├── src/
 │   ├── core/
 │   │   ├���─ Node.js          # Node system (Godot-inspired)
@@ -355,16 +332,16 @@ Press `F12` to open Chrome DevTools.
 ## 📦 Distribution
 
 ### Windows
-- MSI Installer: `YUGA Engine_2.0.0_x64_en-US.msi`
-- Portable: `YUGA Engine.exe`
+- Installer: `YUGA Engine Setup 1.0.0.exe`
+- Portable: `YUGA Engine 1.0.0.exe`
 
 ### macOS
-- DMG: `YUGA Engine_2.0.0_x64.dmg`
-- App Bundle: `YUGA Engine.app`
+- DMG: `YUGA Engine-1.0.0.dmg`
+- ZIP: `YUGA Engine-1.0.0.zip`
 
 ### Linux
-- AppImage: `yuga-engine_2.0.0_amd64.AppImage`
-- Debian: `yuga-engine_2.0.0_amd64.deb`
+- AppImage: `YUGA Engine-1.0.0.AppImage`
+- Debian: `yuga-engine_1.0.0_amd64.deb`
 
 ---
 
@@ -436,10 +413,9 @@ YUGA Engine incorporates code, design patterns, and concepts from the following 
 - **Copyright**: (c) Meta Platforms, Inc.
 - **Used in**: UI framework and component system
 
-### Tauri
-- **License**: MIT License / Apache 2.0
-- **Website**: https://tauri.app
-- **Used in**: Desktop application framework (Rust-based, lightweight alternative to Electron)
+### Electron
+- **License**: MIT License
+- **Used in**: Desktop application framework
 
 ### Tailwind CSS
 - **License**: MIT License
